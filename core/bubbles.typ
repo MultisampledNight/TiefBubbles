@@ -15,11 +15,7 @@
   if mode == "alternating" {
     return if calc.rem(i, 2) == 0 { al1 } else { al2 }
   } else if mode == "named" {
-    let al-choice = if type(c) == dictionary {
-      c.at("name", default: primary-participant) == primary-participant
-    } else {
-      c.at(0) == primary-participant
-    }
+    let al-choice = c.at("name", default: primary-participant) == primary-participant
 
     return if al-choice {
       al1
@@ -53,6 +49,11 @@
 /// When using named mode, the `primary-participant` decides on which
 /// side the bubble will be rendered.
 ///
+/// There are 3 ways to pass a message: 1. use a content or string, 2. use an
+/// array of (name, content), 3. use a dictionary with the keys "name" and
+/// "content". \
+/// In alternating mode, you must use 1; in named mode, you must use 2 or 3.
+/// 
 /// = Examples
 ///
 /// #example(`
@@ -109,6 +110,14 @@
       .pos()
       .enumerate()
       .map(((i, c)) => {
+        // desugar array syntax into dictionary (so that lower-level code paths converge)
+        let c = if type(c) == array {
+          // i am unable to not read c.at and chat as "cat". meow
+          (name: c.at(0), content: c.at(1))
+        } else {
+          c
+        }
+
         let computed-alignment = get-alignment(mode, i, c, primary-participant, swap-sides)
         let computed-box-style = get-box-style(box-style, computed-alignment)
 
@@ -117,20 +126,11 @@
           if mode == "alternating" {
             bubble(box-style: computed-box-style)[#c]
           } else if mode == "named" {
-            if type(c) == array {
-              bubble(
-                box-style: computed-box-style,
-                name: if show-name { c.at(0) } else { none },
-                name-style: name-style,
-              )[#c.at(1)]
-            }
-            if type(c) == dictionary {
-              bubble(
-                box-style: computed-box-style,
-                name: if show-name { c.at("name") } else { none },
-                name-style: name-style,
-              )[#c.at("content")]
-            }
+            bubble(
+              box-style: computed-box-style,
+              name: if show-name { c.at("name") } else { none },
+              name-style: name-style,
+            )[#c.at("content")]
           },
         )
       }),
