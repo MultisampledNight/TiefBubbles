@@ -12,6 +12,7 @@
   avatar: none,
   alignment: left,
   name-style: (:),
+  avatar-style: (:),
   box-style: (:),
   body,
 ) = {
@@ -27,6 +28,11 @@
   )
   let computed-name-style = merge-settings(name-style, default-name-style)
 
+  let default-avatar-style = (
+    width: 3em,
+  )
+  let computed-avatar-style = merge-settings(avatar-style, default-avatar-style)
+
   let maybe-do(test, op) = body => if test { op(body) } else { body }
   set stack(spacing: 4pt)
 
@@ -34,7 +40,7 @@
   show: maybe-do(avatar != none, it => {
     stack(
       dir: if alignment == left { ltr } else { rtl },
-      avatar,
+      box(..computed-avatar-style, align(center, avatar)),
       it,
     )
   })

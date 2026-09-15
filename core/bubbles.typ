@@ -91,6 +91,7 @@
   primary-participant: "A",
   show-name: false,
   name-style: (:),
+  avatar-style: (:),
   box-style: (:),
   swap-sides: false,
   ..contents,
@@ -131,6 +132,7 @@
               name: if show-name { c.at("name") } else { none },
               name-style: name-style,
               avatar: c.at("avatar", default: none),
+              avatar-style: avatar-style,
             )[#c.at("content")]
           },
         )
