@@ -16,22 +16,17 @@
   box-style: (:),
   body,
 ) = {
-  let default-box-style = (
+  let box-style = merge-settings(box-style, (
     stroke: (thickness: 2pt, paint: luma(15%)),
     inset: 5pt,
     radius: 5pt,
-  )
-  let computed-box-style = merge-settings(box-style, default-box-style)
-
-  let default-name-style = (
+  ))
+  let name-style = merge-settings(name-style, (
     size: .8em,
-  )
-  let computed-name-style = merge-settings(name-style, default-name-style)
-
-  let default-avatar-style = (
+  ))
+  let avatar-style = merge-settings(avatar-style, (
     width: 3em,
-  )
-  let computed-avatar-style = merge-settings(avatar-style, default-avatar-style)
+  ))
 
   let maybe-do(test, op) = body => if test { op(body) } else { body }
   set stack(spacing: 4pt)
@@ -40,7 +35,7 @@
   show: maybe-do(avatar != none, it => {
     stack(
       dir: if alignment == left { ltr } else { rtl },
-      box(..computed-avatar-style, align(center, avatar)),
+      box(..avatar-style, align(center, avatar)),
       it,
     )
   })
@@ -49,10 +44,10 @@
   show: maybe-do(name != none, it => box(
     stack(
       dir: ttb,
-      text(..computed-name-style, name),
+      text(..name-style, name),
       it,
     ),
   ))
 
-  bubble-box(computed-box-style, body)
+  bubble-box(box-style, body)
 }
