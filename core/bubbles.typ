@@ -51,7 +51,7 @@
 ///
 /// There are 3 ways to pass a message: 1. use a content or string, 2. use an
 /// array of (name, content), 3. use a dictionary with the keys "name" and
-/// "content". \
+/// "content" (and optionally "avatar"). \
 /// In alternating mode, you must use 1; in named mode, you must use 2 or 3.
 ///
 /// = Examples

@@ -53,7 +53,7 @@ and defining a primary participant (displayed to the opposite side of other part
 You can use an arbitrary number of participants. A participant for a chat message can be
 selected in two ways: You may either pass an array as the message, with the participant being
 the first argument and the content the second, or you can use a dictionary with `name` and
-`content` keys.
+`content` keys, maybe even `avatar` if you want to.
 
 To change which participant appears opposite to the others, use the `primary-participant`
 field. Set it to the name (the strings are compared) of the participant you want to use.
