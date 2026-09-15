@@ -118,20 +118,16 @@
           c
         }
 
-        let computed-alignment = get-alignment(mode, i, c, primary-participant, swap-sides)
-        let computed-box-style = get-box-style(box-style, computed-alignment)
+        let computed = (alignment: get-alignment(mode, i, c, primary-participant, swap-sides))
+        computed += (box-style: get-box-style(box-style, computed.alignment))
 
         align(
-          computed-alignment,
+          computed.alignment,
           if mode == "alternating" {
-            bubble(
-              box-style: computed-box-style,
-              alignment: computed-alignment,
-            )[#c]
+            bubble(..computed)[#c]
           } else if mode == "named" {
             bubble(
-              box-style: computed-box-style,
-              alignment: computed-alignment,
+              ..computed,
               name: if show-name { c.at("name") } else { none },
               name-style: name-style,
               avatar: c.at("avatar", default: none),
