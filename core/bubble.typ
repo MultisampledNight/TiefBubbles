@@ -25,16 +25,16 @@
   )
   let computed-name-style = merge-settings(name-style, default-name-style)
 
-  if name != none {
-    box(
-      stack(
-        dir: ttb,
-        spacing: 4pt,
-        text(..computed-name-style, name),
-        bubble-box(computed-box-style, body),
-      ),
-    )
-  } else {
-    bubble-box(computed-box-style, body)
-  }
+  let maybe-do(test, op) = body => if test { op(body) } else { body }
+  // Add name (if any) above the body
+  show: maybe-do(name != none, it => box(
+    stack(
+      dir: ttb,
+      spacing: 4pt,
+      text(..computed-name-style, name),
+      it,
+    ),
+  ))
+
+  bubble-box(computed-box-style, body)
 }
