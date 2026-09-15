@@ -83,7 +83,7 @@
 /// - name-style (dict): The style to apply to the text of the name
 /// - box-settings (dict): The style to apply to the bubbles
 /// - swap-sides (bool): Whether to display alternate side order
-/// - contents (arguments): The contents of the rendered bubblesS
+/// - contents (arguments): The contents of the rendered bubbles
 ///
 /// -> content
 #let bubbles(
