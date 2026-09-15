@@ -53,7 +53,7 @@
 /// array of (name, content), 3. use a dictionary with the keys "name" and
 /// "content". \
 /// In alternating mode, you must use 1; in named mode, you must use 2 or 3.
-/// 
+///
 /// = Examples
 ///
 /// #example(`
@@ -124,12 +124,17 @@
         align(
           computed-alignment,
           if mode == "alternating" {
-            bubble(box-style: computed-box-style)[#c]
+            bubble(
+              box-style: computed-box-style,
+              alignment: computed-alignment,
+            )[#c]
           } else if mode == "named" {
             bubble(
               box-style: computed-box-style,
+              alignment: computed-alignment,
               name: if show-name { c.at("name") } else { none },
               name-style: name-style,
+              avatar: c.at("avatar", default: none),
             )[#c.at("content")]
           },
         )

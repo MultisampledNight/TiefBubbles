@@ -9,6 +9,8 @@
 
 #let bubble(
   name: none,
+  avatar: none,
+  alignment: left,
   name-style: (:),
   box-style: (:),
   body,
@@ -26,11 +28,21 @@
   let computed-name-style = merge-settings(name-style, default-name-style)
 
   let maybe-do(test, op) = body => if test { op(body) } else { body }
+  set stack(spacing: 4pt)
+
+  // Add avatar (if any) next to the rest
+  show: maybe-do(avatar != none, it => {
+    stack(
+      dir: if alignment == left { ltr } else { rtl },
+      avatar,
+      it,
+    )
+  })
+
   // Add name (if any) above the body
   show: maybe-do(name != none, it => box(
     stack(
       dir: ttb,
-      spacing: 4pt,
       text(..computed-name-style, name),
       it,
     ),
