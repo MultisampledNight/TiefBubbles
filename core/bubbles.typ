@@ -108,9 +108,7 @@
     ..contents
       .pos()
       .enumerate()
-      .map(ic => {
-        let i = ic.at(0)
-        let c = ic.at(1)
+      .map(((i, c)) => {
         let computed-alignment = get-alignment(mode, i, c, primary-participant, swap-sides)
         let computed-box-style = get-box-style(box-style, computed-alignment)
 
