@@ -32,10 +32,16 @@
   set stack(spacing: 4pt)
 
   // Add avatar (if any) next to the rest
-  show: maybe-do(avatar != none, it => {
+  show: maybe-do(avatar != none, it => context {
+    let dims = measure(it)
     stack(
       dir: if alignment == left { ltr } else { rtl },
-      box(..avatar-style, align(center, avatar)),
+      box(
+        // don't want the pfp to "extend" over the message... by default, that is
+        height: dims.height,
+        ..avatar-style,
+        align(center, avatar),
+      ),
       it,
     )
   })
