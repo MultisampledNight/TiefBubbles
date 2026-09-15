@@ -86,3 +86,15 @@ When text messages must shine.
   ("Stephen", [Is it?]),
   ("Adria", [No.]),
 )
+
+#pagebreak()
+
+#bubbles(
+  mode: "named",
+  primary-participant: "Sascha",
+  show-name: true,
+  (name: "Sascha", avatar: square(), content: [beep boop]),
+  (name: "Rumiko", avatar: circle(), content: [boop beep!!]),
+  (name: "Artyom", avatar: polygon.regular(vertices: 3), content: [uuuuh. meow?])
+)
+
